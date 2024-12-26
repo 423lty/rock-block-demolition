@@ -5,22 +5,21 @@ class Ball {
      */
     constructor(){
         this.ball=document.querySelector('.ball');
-        this.gravity=.5;
-        this.velocity=0;
+        this.gravity=9.8;
+        this.velocity=1;
+        this.maxVelocity=7;
         this.interval=null;
         this.updateTime=20;
+        this.updateMicroTime=10000;
         this.revese=-1;
 
         this.bar=document.querySelector('.bar');
-        this.barRect=this.bar.getBoundingClientRect();
-        console.log(this.barRect);
 
         this.wall=document.querySelector('.inner');
         this.wallRect=this.wall.getBoundingClientRect();
-        console.log(this.wallRect);
 
-        this.blocks=document.querySelectorAll('.block');
-        console.log(this.blocks);
+        this.blocks=Array.from(document.querySelectorAll('.block'));
+        // console.log(this.blocks);
     }
 
     /**
@@ -43,10 +42,12 @@ class Ball {
     ballAction(){
         const pos=parseInt(window.getComputedStyle(this.ball).top,10);
         // console.log(pos);
-        this.velocity+=this.gravity;
-        const newPos=pos+this.velocity;
+        this.velocity+=this.gravity*this.updateTime/this.updateMicroTime;
+        if(this.velocity>this.maxVelocity)
+            this.velocity=this.maxVelocity;
+        const newPos=parseInt(pos+this.velocity);
 
-        this.collisionCheck(newPos);
+        this.collisionCheck();
         this.ball.style.top=newPos+'px';
 
         // console.log(newPos);
@@ -56,34 +57,14 @@ class Ball {
      * 当たり判定
      * @param {*} newPos 
      */
-    collisionCheck(newPos){
+    collisionCheck(){
 
-        // ballと壁のあたり判定
-        if(newPos<=this.wallRect.top){
-            // this.ball.style.top=this.wallRect.top+'px';
-            this.gravity*=this.revese;
-        }
-        if(newPos>=this.wallRect.bottom){
-            this.ball.style.top=this.wallRect.bottom+'px';
-            console.log("ゲーム終了");
-            this.stopFalling();
-        }
+        const ballRect = this.ball.getBoundingClientRect();
+        const barRect = this.bar.getBoundingClientRect();
 
-        //bar と 　ballのあたり判定
-        if(newPos>=this.barRect.top){
-            this.gravity*=this.revese;
-        }
-
-        this.blocks.forEach(block=>{
-            const blockRect=block.getBoundingClientRect();
-            if(this.isColliding(this.ball.getBoundingClientRect(),blockRect)){
-                console.log("削除");
-                block.style.display=none;
-                this.gravity*=this.revese;
-            }
-            else
-                console.log("当たってない");
-        })
+        this.wallCollisionCheck(ballRect);
+        this.barCollisionCheck(ballRect,barRect);
+        this.blockCollisionCheck();  
     }
     isColliding(rect1,rect2){
         return !(
@@ -92,6 +73,78 @@ class Ball {
             rect1.bottom<rect2.top||
             rect1.top>rect2.bottom
         );
+    }
+
+    /**
+     * バートのあたり判定
+     * @param {*} ballRect 
+     * @param {*} barRect 
+     */
+    barCollisionCheck(ballRect,barRect){
+        // ボールとバーのあたり判定
+        if (ballRect.bottom > barRect.top && ballRect.top < barRect.bottom &&
+            ballRect.right > barRect.left && ballRect.left < barRect.right) {
+
+            if(ballRect.right>barRect.right){
+                this.velocity=Math.abs(this.velocity);
+            }
+            else if(ballRect.left<barRect.left){
+                this.velocity=-Math.abs(this.velocity);
+            }
+            else{
+                this.gravity=-Math.abs(this.gravity);
+                this.velocity=-Math.abs(this.velocity);
+            }
+
+            // console.log("バーに当たった");
+        }
+    }
+    
+    /**
+     * 壁とのあたり判定
+     * @param {*} newPosRect 
+     */
+    wallCollisionCheck(newPosRect){
+        // ballと壁のあたり判定
+        if(newPosRect.top<=this.wallRect.top){
+            this.ball.style.top=this.wallRect.top+'px';
+            this.gravity=Math.abs(this.gravity);
+            this.velocity=Math.abs(this.velocity);
+        }
+        
+        if(newPosRect.bottom>=this.wallRect.bottom){
+            this.ball.style.bottom=this.wallRect.top+'px';
+            console.log("ゲーム終了");
+            this.stopFalling();
+        }
+
+        if(newPosRect.left<=this.wallRect.left){
+            this.ball.style.left=this.wallRect.left+'px';
+            this.gravity=-Math.abs(this.gravity);
+            this.velocity=-Math.abs(this.velocity);
+        }
+
+        if(newPosRect.right>=this.wallRect.right){
+            this.ball.style.right=this.wallRect.right+'px';
+            this.gravity=-Math.abs(this.gravity);
+            this.velocity=-Math.abs(this.velocity);
+        }   
+    }
+
+    blockCollisionCheck(){
+        this.blocks.forEach(block=>{
+            const blockRect=block.getBoundingClientRect();
+            if(this.isColliding(this.ball.getBoundingClientRect(),blockRect)){
+                console.log("削除");
+                block.remove();
+                this.blocks=Array.from(this.blocks).filter(b=>b!==block);
+                this.gravity*=this.revese;
+                
+                // block.style.display='none';
+                // this.gravity=Math.abs(this.gravity);
+                // this.velocity=Math.abs(this.velocity);
+            }
+        })
     }
 }
 

@@ -45,7 +45,7 @@ header {
     background-color: #fff;
     position: absolute;
     /* top: 70%; */
-    top: 10%;
+    top: 60%;
     left: 40%;
 }
 footer {
@@ -53,4 +53,17 @@ footer {
     width: 40%;
     margin: 0 auto;
     display: block;
+}
+
+.start {
+    background-color: #5d5757;
+    top: 40%;
+    position: absolute;
+    left: 10%;
+    width: 100px;
+    height: 25px;
+    /* padding: 5px 2px; */
+    margin: 4px 2px;
+    text-align: center;
+    align-items: center;
 }

@@ -10,16 +10,23 @@ class Blocks{
      */
     constructor(row,col){
         this.table=document.querySelector('.blocks');
-        let html='';
         for(let r=0;r<row;r++){
-            // console.log(r+'行目');
-            html+='<div class="flex">'
+            // // console.log(r+'行目');
+            // html+='<div class="flex">'
+            // for(let c=0;c<col;c++){
+            //     html+=`<div class="block"></div>`
+            // }
+            // html+='</div>'
+            const block=document.createElement('div');
+            block.classList.add('flex');
             for(let c=0;c<col;c++){
-                html+=`<div class="block"></div>`
+                const blockList=document.createElement('div');
+                blockList.classList.add('block');
+                block.appendChild(blockList);
             }
-            html+='</div>'
+            this.table.appendChild(block);
         }
-        this.table.innerHTML+=html;
+        // this.table.innerHTML+=html;
     }
 }
 

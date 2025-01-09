@@ -18,7 +18,8 @@ class Ball {
         this.wall=document.querySelector('.inner');
         this.wallRect=this.wall.getBoundingClientRect();
 
-        this.blocks=Array.from(document.querySelectorAll('.block'));
+        // this.blockArray=document.querySelector('.blocks');
+        // this.blocks=document.querySelectorAll('.block');
         // console.log(this.blocks);
     }
 
@@ -64,9 +65,9 @@ class Ball {
 
         this.wallCollisionCheck(ballRect);
         this.barCollisionCheck(ballRect,barRect);
-        this.blockCollisionCheck();  
+        // this.blockCollisionCheck();  
     }
-    isColliding(rect1,rect2){
+    static isColliding(rect1,rect2){
         return !(
             rect1.right<rect2.left||
             rect1.left>rect2.right||
@@ -131,21 +132,7 @@ class Ball {
         }   
     }
 
-    blockCollisionCheck(){
-        this.blocks.forEach(block=>{
-            const blockRect=block.getBoundingClientRect();
-            if(this.isColliding(this.ball.getBoundingClientRect(),blockRect)){
-                console.log("削除");
-                block.remove();
-                this.blocks=Array.from(this.blocks).filter(b=>b!==block);
-                this.gravity*=this.revese;
-                
-                // block.style.display='none';
-                // this.gravity=Math.abs(this.gravity);
-                // this.velocity=Math.abs(this.velocity);
-            }
-        })
-    }
+
 }
 
 const ball=new Ball();

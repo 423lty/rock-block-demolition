@@ -67,6 +67,7 @@ class Ball {
         this.barCollisionCheck(ballRect,barRect);
         // this.blockCollisionCheck();  
     }
+
     static isColliding(rect1,rect2){
         return !(
             rect1.right<rect2.left||
@@ -134,6 +135,8 @@ class Ball {
 
 
 }
+
+// module.exports=Ball;
 
 const ball=new Ball();
 ball.startFalling();

@@ -1,3 +1,4 @@
+// const ball=require('./ball');
 /**
  * ブロック
  */
@@ -74,7 +75,6 @@ class Blocks{
                 // }
             }
         })
-        console.log(ballRect);
     }
 }
 

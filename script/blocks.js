@@ -1,4 +1,5 @@
-// const ball=require('./ball');
+// import { Ball } from "./ball";
+
 /**
  * ブロック
  */
@@ -18,6 +19,7 @@ class Blocks{
 
         this.ball=document.querySelector('.ball');
 
+        // 生成
         for (let r = 0; r < row; r++) {
             const block = document.createElement('div');
 
@@ -47,21 +49,51 @@ class Blocks{
 
             this.table.appendChild(block);
         }
-        console.log( this.blocks = document.querySelectorAll('.block'));
+
+        this.blocks = document.querySelectorAll('.block')
+
+        console.log(this.blocks);
 
         // this.blockCollisionCheck(); 
     }
 
     blockCollisionCheck(){
-        const ballRect=this.ball.getBoundingClientRect();
+        // const blockArray=document.querySelector('.blocks');
         this.blocks.forEach((block,index)=>{
-            const blockRect=block.getBoundingClientRect();
-            if(Ball.isColliding(ballRect,blockRect)){
-                console.log("削除");
-                block.remove();
-                this.blocks=Array.from(this.blockArray.querySelectorAll('.block')).filter(b=>b!==block);
-                this.gravity*=this.revese;
-                
+            try{
+                // それぞれのブロックの位置をそれぞれ取得
+                const ballRect=this.ball.getBoundingClientRect();
+                const blockRect=block.getBoundingClientRect();
+
+                // 当たり判定
+                console.log("当たり判定開始");
+                if(Ball.isColliding(ballRect,blockRect)){
+                    console.log("削除");
+                    block.remove();
+                    this.blocks=Array.from(this.blockArray.querySelectorAll('.block')).filter(b=>b!==block);
+                    this.gravity*=this.revese;
+            
+                }
+            }
+            catch(e){
+                console.log(e.message);
+            }
+            
+        })
+    }
+}
+
+
+/**
+ * 生成
+ */
+const blocks = new Blocks(5, 6);    
+blocks.blockCollisionCheck();
+// document.addEventListener('DOMContentLoaded',()=>
+//     new Blocks(5,6)
+// )
+
+
                 // const leftBlock=this.blocks[index-1];
                 // const rightBlock=this.blocks[index+1];
                 
@@ -73,17 +105,3 @@ class Blocks{
                 //     rightBlock.style.position = 'absolute';
                 //     rightBlock.style.left = `${blockRect.right}px`;
                 // }
-            }
-        })
-    }
-}
-
-
-/**
- * 生成
- */
-// document.addEventListener('DOMContentLoaded',()=>
-//     new Blocks(5,6)
-// )
-const blocks = new Blocks(5, 6);    
-blocks.blockCollisionCheck();

@@ -4,7 +4,9 @@
     box-sizing: border-box;
 }
 body{
+    /* max-width: 1350px; */
     margin: 20px 5px;
+    margin: 0 auto;
 }
 header {
     text-align: center; 
@@ -17,6 +19,7 @@ header {
     margin: 0 auto;
     height: 70vh;
     position: relative;
+    max-width: 30%;
 }
 .flex {
     display: flex;

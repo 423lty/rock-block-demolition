@@ -116,8 +116,10 @@ class Ball {
         
         if(newPosRect.bottom>=this.wallRect.bottom){
             this.ball.style.bottom=this.wallRect.top+'px';
-            console.log("ゲーム終了");
             this.stopFalling();
+            console.log("ゲーム終了");
+            const gameOver=document.querySelector('.game-over');
+            gameOver.style.opacity='1';
         }
 
         if(newPosRect.left<=this.wallRect.left){
@@ -136,7 +138,7 @@ class Ball {
 
 }
 
-// module.exports=Ball;
+// export {Ball};
 
 const ball=new Ball();
 ball.startFalling();

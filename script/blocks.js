@@ -16,6 +16,7 @@ class Blocks{
         const blockHeight=40;
         const mapWidth=this.table.clientWidth;
         const mapHeight=this.table.clientHeight;    
+        this.blockArray=[];
 
         this.ball=document.querySelector('.ball');
 
@@ -32,19 +33,13 @@ class Blocks{
             for (let c = 0; c < col; c++) {
                 const blockList = document.createElement('div');
                 blockList.classList.add('block');
-                // blockList.style.position = 'absolute';
                 blockList.style.width = `${blockWidth}px`;
                 blockList.style.height = `${blockHeight}px`;
                 blockList.style.top = `${r * blockHeight}px`;
                 blockList.style.left = `${c * blockWidth}px`;
-                // blockList.style.padding='10px';
-                // blockList.style.margin='10px';
 
                 block.appendChild(blockList);
-
-                // ブロックがマップの外に出ないようにする
-                if (parseInt(block.style.left) + blockWidth <= mapWidth && parseInt(block.style.top) + blockHeight <= mapHeight) {
-                }
+                this.blockArray.push(blockList);
             }
 
             this.table.appendChild(block);
@@ -52,34 +47,30 @@ class Blocks{
 
         this.blocks = document.querySelectorAll('.block')
 
-        console.log(this.blocks);
+        console.log(this.blockArray);
 
         // this.blockCollisionCheck(); 
     }
 
+    /**判定
+     * ブロックとの衝突判定
+     */
     blockCollisionCheck(){
-        // const blockArray=document.querySelector('.blocks');
-        this.blocks.forEach((block,index)=>{
-            try{
-                // それぞれのブロックの位置をそれぞれ取得
-                const ballRect=this.ball.getBoundingClientRect();
-                const blockRect=block.getBoundingClientRect();
-
-                // 当たり判定
-                console.log("当たり判定開始");
-                if(Ball.isColliding(ballRect,blockRect)){
-                    console.log("削除");
+        this.blockArray.forEach(block=>{
+            const blockRect=block.getBoundingClientRect();
+            console.log("blockRect");
+            if(this.ballRect<blockRect.bottom&&
+                this.ballRect.top<blockRect.bottom&&
+                this.ballRect.right>blockRect.left&&
+                this.ballRect.left<blockRect.right)
+                {
+                    console.log("");
                     block.remove();
                     this.blocks=Array.from(this.blockArray.querySelectorAll('.block')).filter(b=>b!==block);
                     this.gravity*=this.revese;
-            
                 }
-            }
-            catch(e){
-                console.log(e.message);
-            }
-            
-        })
+        });
+
     }
 }
 
@@ -105,3 +96,26 @@ blocks.blockCollisionCheck();
                 //     rightBlock.style.position = 'absolute';
                 //     rightBlock.style.left = `${blockRect.right}px`;
                 // }
+
+                        // const blockArray=document.querySelector('.blocks');
+        // this.blocks.forEach((block,index)=>{
+        //     try{
+        //         // それぞれのブロックの位置をそれぞれ取得
+        //         const ballRect=this.ball.getBoundingClientRect();
+        //         const blockRect=block.getBoundingClientRect();
+
+        //         // 当たり判定
+        //         console.log("当たり判定開始");
+        //         if(Ball.isColliding(ballRect,blockRect)){
+        //             console.log("削除");
+        //             block.remove();
+        //             this.blocks=Array.from(this.blockArray.querySelectorAll('.block')).filter(b=>b!==block);
+        //             this.gravity*=this.revese;
+            
+        //         }
+        //     }
+        //     catch(e){
+        //         console.log(e.message);
+        //     }
+            
+        // })

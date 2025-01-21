@@ -138,8 +138,6 @@ class Ball {
 
 }
 
-// export {Ball};
-
 const ball=new Ball();
 ball.startFalling();
 

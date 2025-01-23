@@ -1,66 +1,27 @@
 class Bar {
-    /**
-     * コンストラクタ
-     */
-    constructor(){
+    constructor() {
         this.bar=document.querySelector('.bar');
-        this.rect=document.querySelector('.inner');
-        this.MoveVector=30;
-
-        const rect=this.rect.getBoundingClientRect();
-        const style=window.getComputedStyle(this.rect);
-        const marginLeft=parseInt(style.marginLeft,10);
-        const marginRight=parseInt(style.marginRight,10);
-        this.leftEdge=rect.left-marginLeft;
-        this.rightEdge=rect.right-marginRight-this.bar.offsetWidth;
+        this.inner=document.querySelector('.inner');
+        this.style=window.getComputedStyle(this.bar);
+        this.x=400;
+        this.y=680;
     }
+    moveBar(event) {  
 
-    // バーの移動
-    barMove(){
-        document.addEventListener('keydown',(event)=>this.barAction(event));
-    }
+        const mouseX=event.clientX-this.inner.getBoundingClientRect().left;
+        const barX=mouseX-this.bar.offsetWidth/2;
+        // console.log(this.inner.getBoundingClientRect().left);
+        this.bar.style.left=this.x+"px";
 
-    /**
-     * 移動処理
-     * @param {*} event 
-     */
-    barAction(event){
-        //移動量を取得
-        let vector=this.inputArrowKey(event.key);
+        if(barX<this.inner.getBoundingClientRect().left-this.inner.getBoundingClientRect().width/2) {
+            this.x=this.inner.getBoundingClientRect().left-this.inner.getBoundingClientRect().width/2;
+        }
+        else{
 
-        //位置の変更
-        let pos=this.vectorArrowCheck(vector);
-        this.bar.style.left=pos+'px';
-    }
-   /**
-    * 入力されたボタンから取得
-    * @param {*} arrow 入力した矢印キー
-    * @returns 
-    */
-    inputArrowKey(arrow){   
-        let x=0;
-        if(arrow==='ArrowLeft')
-            x=-this.MoveVector;
-        if(arrow==='ArrowRight')        
-            x=this.MoveVector;
-        return x;
-    }    
+        }
 
-    /**
-     * 移動してよいか
-     * @param {*} vector 移動量
-     * @returns 移動先
-     */
-    vectorArrowCheck(vector){
-        const pos=parseInt(window.getComputedStyle(this.bar).left,10);
-        const destination=pos+vector;
-        if (destination > this.rightEdge  || destination < this.leftEdge)
-            return pos;
-        else
-            return destination; 
-    }
-
+    }   
 }
 
-const bar=new Bar();
-bar.barMove();
+bar = new Bar();
+document.addEventListener('mousemove', (event)=>bar.moveBar(event));

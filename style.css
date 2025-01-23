@@ -1,91 +1,62 @@
-*{
-    margin : 0;
-    padding : 0;
-    box-sizing: border-box;
-}
-body{
-    /* max-width: 1350px; */
-    margin: 20px 5px;
-    margin: 0 auto;
-}
-header {
-    text-align: center; 
-}
-.inner {
-    padding: 30px 20px;
-    margin: 20px 10px;
-    background-color: black;
-    width: 40%;
-    margin: 0 auto;
-    height: 70vh;
-    position: relative;
-    max-width: 30%;
-}
-.flex {
-    display: flex;
-    justify-content: center;
-}
-.block {
-    width: 100px;
-    height: 50px;
-    border: 1px solid #fff;
-    background-color: #333;
-    padding: 10px 4px;
-    margin: 4px 2px ;
-    /* position: absolute; */
-}
-.bar {
-    width: 150px;
-    height: 20px;
-    background-color: #17def4;
-    position: absolute;
-    bottom:5%;
-    left: 35%;     
-}
-.ball {
-    width: 30px;
-    height: 30px;
-    border-radius: 100%;
-    background-color: #fff;
-    position: absolute;
-    /* top: 70%; */
-    top: 60%;
-    left: 40%;
-}
-footer {
-    padding: 10px 0;
-    width: 40%;
-    margin: 0 auto;
-    display: block;
+body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    /* display: flex; */
 }
 
-.start {
-    background-color: #5d5757;
-    top: 40%;
-    position: absolute;
-    left: 10%;
-    width: 100px;
-    height: 25px;
-    /* padding: 5px 2px; */
-    margin: 4px 2px;
+header {
+    padding: 20px 10px;
     text-align: center;
-    align-items: center;
 }
-.game-over {
-    position: absolute;
-    top: 50%;
+main {
+    border:1px solid #000;
+    height: 85vh;
+    background-color: #312e2e;
+    position: relative;
+}
+.inner {
+    top: 2%;
     left: 50%;
-    transform: translate(-50%,-50%);
-    background-color: #17def483;
-    box-shadow: 0 0 10px 1px #fff;
-    border-radius: 1%;
-    /* opacity: .5; */
-    padding: 60px;
-    margin: 10px 5px;
-    opacity: 0;
-    transition: all .4s;
+    transform: translate(-50%, 0);
+    position: absolute;
+    width: 50vw;
+    height: 80vh;
+    background-color: #a9a9a9a9;
+    display: flex;
 }
-.message {
-    font-size: 40px;
-    color: azure;
+.block{
+    width: 15%;
+    height: 7%;
+    position: absolute;
+    background-color: #f0f0f0;
+}
+.bar {
+    width: 20%;
+    height: 5%;
+    z-index: 1;
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f0f0f0;
+}
+.ball {
+    width: 5%;
+    height: 5%;
+    background-color: cornflowerblue;
+    border-radius: 50%;
+    bottom: 15%;
+    position: absolute;
+    left: 50%;
+
+    transform: translateX(-50%);
+}
+footer {
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
 }

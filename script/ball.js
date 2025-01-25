@@ -1,5 +1,7 @@
 class Ball {
     constructor(){
+        
+        this.gameOver=document.querySelector(".game-over");
         this.ball=document.querySelector(".ball");
         this.blocks=document.querySelectorAll(".block");
         this.x=400;
@@ -18,20 +20,25 @@ class Ball {
         this.ball.style.top=this.y+"px";
 
         //壁との衝突判定
-        if(this.x<=-90 || this.x>=640){
+        if(this.x<=this.ball.offsetWidth/4 || this.x>=this.innerRect.width-this.ball.offsetWidth/4){
             this.ballSpeedX*=-1;
         }
-        if(this.y<=0 || this.y>=this.innerRect.bottom-this.innerRect.y){
+        if(this.y<=0){
             this.ballSpeedY*=-1;
+        }
+        if(this.y>=this.innerRect.height-this.ball.offsetHeight){
+            this.gameOver.style.display="block";
+            this.ball.style.display="none";
         }
 
         //パドルとの衝突判定
         let ballRect=this.ball.getBoundingClientRect();
         let bar=document.querySelector(".bar");
-        if( this.x>=bar.offsetLeft && 
-            this.x<=bar.offsetLeft-bar.offsetWidth && 
-            this.y>=bar.offsetTop && 
-            this.y<=bar.offsetTop+bar.offsetHeight){
+        let barRect=bar.getBoundingClientRect();
+        if( ballRect.bottom>=barRect.top&&
+            ballRect.top<=barRect.bottom&&
+            ballRect.right>=barRect.left&&
+            ballRect.left<=barRect.right){
                 this.ballSpeedY*=-1;
             }
 

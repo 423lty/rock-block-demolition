@@ -1,7 +1,8 @@
 class Blocks{
     constructor(){
         this.blocks=document.querySelector('.inner');
-       
+        this.gameClear=document.querySelector('.game-clear');    
+        this.blockArray=[];
         this.blockGenerate();
     }
 
@@ -18,6 +19,8 @@ class Blocks{
 
             block.style.left=col*17+'%';
             block.style.top=row*10+'%';
+
+            this.blockArray.push(block);
         }
     }
     collisionCheck(){
@@ -31,13 +34,19 @@ class Blocks{
                 ballRect.left<=blockRect.right &&
                 ballRect.right>=blockRect.left){
                     block.remove();
+                    this.blockArray=this.blockArray.filter(item=>item!==block);
+                    Ball.Reflect();
                 }
         });
+
+        if(this.blockArray.length==0)
+            this.gameClear.style.display='block';
+
+        console.log(this.blockArray);
 
         requestAnimationFrame(()=>this.collisionCheck());
     }
 }
 
-// document.addEventListener('DOMContentLoaded',()=>new Blocks());
 blocks=new Blocks();
 blocks.collisionCheck();

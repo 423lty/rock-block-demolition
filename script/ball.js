@@ -1,17 +1,28 @@
 class Ball {
     constructor(){
         
+        // それぞれのスタイルの取得
         this.gameOver=document.querySelector(".game-over");
         this.ball=document.querySelector(".ball");
+        
+        if(!this.ball){
+            console.log("ball is not found");
+            return;
+        }
         this.blocks=document.querySelectorAll(".block");
+        this.gameOver.style.display="none";
+        this.ball.style.display="block";
+
+        // 位置の初期化
         this.x=400;
         this.y=600;
-        this.ballSpeedX=2;
-        this.ballSpeedY=2;
+        this.ballSpeedX=1;
+        this.ballSpeedY=1;
 
+        //ゲームインナーの初期化
         this.inner=document.querySelector(".inner");
         this.innerRect=this.inner.getBoundingClientRect();
-        console.log(this.inner.getBoundingClientRect());
+        // console.log(this.inner.getBoundingClientRect());
     }
     moveBall(){
         this.x+=this.ballSpeedX;
@@ -46,11 +57,18 @@ class Ball {
         //アニメーションをする
         requestAnimationFrame(()=>this.moveBall());
     }
+    resetPosition(){
+        this.ball.style.display="block";
+        this.x=400;
+        this.y=600;
+        this.ball.style.left=this.x+"px";
+        this.ball.style.top=this.y+"px";
+    }
     
     static Reflect(){
         this.ballSpeedY*=-1;
     }
 }
 
-ball=new Ball();
-ball.moveBall();
+// ball=new Ball();
+// ball.moveBall();

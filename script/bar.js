@@ -11,6 +11,11 @@ class Bar {
         this.speed=10;
     }
 
+    resetPosition(){
+        this.x=400;
+        this.bar.style.left=this.x+"px";
+    }
+
     /**
      * バーの移動
      * @param {イベントキー} event 
@@ -24,5 +29,5 @@ class Bar {
     }   
 }
 
-bar = new Bar();
-document.addEventListener('keydown', (event)=>bar.moveBar(event.key));
+// bar = new Bar();
+// document.addEventListener('keydown', (event)=>bar.moveBar(event.key));

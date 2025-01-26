@@ -3,10 +3,12 @@ class Blocks{
         this.blocks=document.querySelector('.inner');
         this.gameClear=document.querySelector('.game-clear');    
         this.blockArray=[];
+        this.gameClear.style.display='none';
         this.blockGenerate();
     }
 
     blockGenerate(){
+        this.blocks.innerHTML='';   
         const blockLine=5;
         const blockNum=6;
         for(let i=0;i<blockLine*blockNum;i++){
@@ -42,11 +44,11 @@ class Blocks{
         if(this.blockArray.length==0)
             this.gameClear.style.display='block';
 
-        console.log(this.blockArray);
+        // console.log(this.blockArray);
 
         requestAnimationFrame(()=>this.collisionCheck());
     }
 }
 
-blocks=new Blocks();
-blocks.collisionCheck();
+// blocks=new Blocks();
+// blocks.collisionCheck();

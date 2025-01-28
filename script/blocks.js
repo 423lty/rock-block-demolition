@@ -1,14 +1,14 @@
 class Blocks{
-    constructor(){
+    constructor(ballInstance){
         this.blocks=document.querySelector('.inner');
-        this.gameClear=document.querySelector('.game-clear');    
+
         this.blockArray=[];
-        this.gameClear.style.display='none';
         this.blockGenerate();
+        this.ball=ballInstance;
     }
 
     blockGenerate(){
-        this.blocks.innerHTML='';   
+        this.blocks.querySelectorAll('.block').forEach(block=>block.remove());
         const blockLine=5;
         const blockNum=6;
         for(let i=0;i<blockLine*blockNum;i++){
@@ -37,12 +37,12 @@ class Blocks{
                 ballRect.right>=blockRect.left){
                     block.remove();
                     this.blockArray=this.blockArray.filter(item=>item!==block);
-                    Ball.Reflect();
+                    this.ball.reflectY();
                 }
         });
 
         if(this.blockArray.length==0)
-            this.gameClear.style.display='block';
+            document.querySelector('.game-clear').style.display='block';
 
         // console.log(this.blockArray);
 

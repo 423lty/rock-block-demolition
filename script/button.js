@@ -1,4 +1,4 @@
-class ButttonStart{
+class ButtonStart{
     constructor(){
         this.button=document.querySelector('button');
         this.buttonAction();
@@ -8,15 +8,13 @@ class ButttonStart{
     }
     startGame(){
         const countdownElement=document.createElement('div');
+        document.querySelector('.game-clear').style.display='none';
+        document.querySelector(".game-over").style.display="none";
+
         countdownElement.classList.add('countdown');
-        countdownElement.style.position='absolute';
-        countdownElement.style.top='50%';
-        countdownElement.style.left='50%';
-        countdownElement.style.transform='translate(-50%,-50%)';
-        countdownElement.style.fontSize='7rem';
-        countdownElement.style.color='white';
+
         this.button.disabled=true;
-        this.button.appendChild(countdownElement);
+        document.body.appendChild(countdownElement);
 
         let count=3;
         countdownElement.textContent=count; 
@@ -39,22 +37,22 @@ class ButttonStart{
         //インスタンス
         const ball=new Ball();
         const bar=new Bar();
-        const block=new Blocks();
+        const block=new Blocks(ball);
 
+        if (!document.querySelector(".inner")) {
+            console.error("Block container is not available.");
+            return;
+        }
+        if (!document.querySelector(".bar")) {
+            console.error("Bar is not created before starting the game.");
+            return;
+        }
         if (!document.querySelector(".ball")) {
             console.error("Ball is not created before starting the game.");
             return;
         }
         
-        if (!document.querySelector(".bar")) {
-            console.error("Bar is not created before starting the game.");
-            return;
-        }
         
-        if (!document.querySelector(".inner")) {
-            console.error("Block container is not available.");
-            return;
-        }
         
         //イベントリスナー
         ball.resetPosition();
@@ -78,7 +76,7 @@ class ButttonStart{
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
-    new ButttonStart();
+    new ButtonStart();
 });
 
 // const button=new ButttonStart();

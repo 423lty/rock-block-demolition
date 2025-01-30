@@ -2,13 +2,18 @@ class ButtonStart{
     constructor(){
         this.button=document.querySelector('button');
         this.buttonAction();
+        this.ball;
     }
     buttonAction(){
         this.button.addEventListener('click',()=>this.startGame());  
     }
     startGame(){
+        this.ball=new Ball();
         const countdownElement=document.createElement('div');
-        document.querySelector('.game-clear').style.display='none';
+        const gameOver=document.querySelector(".game-over");
+        if(gameOver){
+            gameOver.style.setPrp='none';
+        }
         document.querySelector(".game-over").style.display="none";
 
         countdownElement.classList.add('countdown');
@@ -34,10 +39,10 @@ class ButtonStart{
         ,1000);
     }   
     startMainGame(){
+        
         //インスタンス
-        const ball=new Ball();
         const bar=new Bar();
-        const block=new Blocks(ball);
+        const block=new Blocks(this.ball);
 
         if (!document.querySelector(".inner")) {
             console.error("Block container is not available.");
@@ -52,13 +57,6 @@ class ButtonStart{
             return;
         }
         
-        
-        
-        //イベントリスナー
-        ball.resetPosition();
-        bar.resetPosition();
-        block.blockGenerate();
-
         console.log("Initializing game...");
         console.log("Ball:", document.querySelector(".ball"));
         console.log("Bar:", document.querySelector(".bar"));
@@ -66,8 +64,9 @@ class ButtonStart{
 
         
         document.addEventListener('keydown',(event)=>bar.moveBar(event.key));
-        ball.moveBall();
+        this.ball.gameStart();
         block.collisionCheck();
+
     }
     reLoad(){
         location.reload();
@@ -79,5 +78,3 @@ document.addEventListener('DOMContentLoaded',()=>{
     new ButtonStart();
 });
 
-// const button=new ButttonStart();
-// button.buttonAction();

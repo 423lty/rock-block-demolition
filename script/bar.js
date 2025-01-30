@@ -3,16 +3,36 @@ class Bar{
      * コンストラクタ
      */
     constructor() {
-        this.bar=document.querySelector('.bar');
+        
         this.inner=document.querySelector('.inner');
-        this.style=window.getComputedStyle(this.bar);
-        this.x=this.inner.offsetWidth/2-this.bar.offsetWidth/2;
-        this.speed=this.inner.offsetWidth/30;
+        // 以前に存在するバーを削除
+        this.createBarElement();
+
+        this.bar=document.querySelector('.bar');
+
+        //this変数の定義
+        this.x;
+        this.speed;
+
+        // 変数の初期化
+        this.resetBar();
     }
 
-    resetPosition(){
+    createBarElement(){
+        const bar = document.querySelector('.bar');
+        if(bar){
+            bar.remove();
+        }
+
+        const newBar=document.createElement('div');
+        newBar.classList.add('bar');
+        this.inner.appendChild(newBar);
+    }
+
+    resetBar(){
         this.x=this.inner.offsetWidth/2;
         this.bar.style.left=this.x+"px";
+        this.speed=this.inner.offsetWidth/30;
     }
 
     /**

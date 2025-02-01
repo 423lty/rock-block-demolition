@@ -2,16 +2,22 @@ class Blocks{
     constructor(ballInstance){
         this.blocks=document.querySelector('.inner');
 
+        const blockLine=5;
+        const blockCol=6;
+
+        this.ColPercent=17;
+        this.RowPercent=10;
+
         this.blockArray=[];
-        this.blockGenerate();
+        this.blockGenerate(blockLine,blockCol);
         this.ball=ballInstance;
     }
 
-    blockGenerate(){
+    blockGenerate(line,col){
         this.blocks.querySelectorAll('.block').forEach(block=>block.remove());
-        const blockLine=5;
-        const blockNum=6;
-        for(let i=0;i<blockLine*blockNum;i++){
+        const blockLine=line;
+        const blockCol=col;
+        for(let i=0;i<blockLine*blockCol;i++){
             const block=document.createElement('div');
             block.classList.add('block');
             this.blocks.appendChild(block);
@@ -19,8 +25,8 @@ class Blocks{
             const col=Math.floor(i/blockLine);
             const row=i%blockLine;
 
-            block.style.left=col*17+'%';
-            block.style.top=row*10+'%';
+            block.style.left=col*this.ColPercent+'%';
+            block.style.top=row*this.RowPercent+'%';
 
             this.blockArray.push(block);
         }
@@ -41,14 +47,15 @@ class Blocks{
                 }
         });
 
-        if(this.blockArray.length==0)
-            document.querySelector('.game-clear').style.display='block';
+        if(this.blockArray.length==0){
+            document.querySelector('.game-clear').style.cssText='display:block !important';
+            this.ball.gameStop();
+            this.ball.gameClearFlgon();
+            return;
+        }
 
         // console.log(this.blockArray);
 
         requestAnimationFrame(()=>this.collisionCheck());
     }
 }
-
-// blocks=new Blocks();
-// blocks.collisionCheck();

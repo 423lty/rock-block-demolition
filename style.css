@@ -68,13 +68,13 @@ footer {
     background-color: #f0f0f0;
     /* display: none; */
 }
-.game-message > .game-over {
-    display: none;
+.game-over {
+    display: none !important;
     font-size: 5rem;
     padding: 20px;
     background-color: rgba(255, 0, 0, 0.3);
 }
-.game-message > .game-clear {
+.game-clear {
     display: none;
     font-size: 5rem;
     background-color: rgba(29, 144, 144, 0.3);
@@ -95,7 +95,7 @@ footer {
     cursor: pointer;
     transition:all .3s;
 }
-.start > button:hover {
+.start button:hover {
     background-color: #56b0c9;
     
 }

@@ -18,10 +18,12 @@ class Ball{
         this.y;
         this.ballSpeedX;
         this.ballSpeedY;
+        this.MaxBallSpeed=1.0;    
+        this.MinBallSpeed=.25;    
         this.isMoveFlg=false;
+        this.gameClearFlg=false;    
         
         this.resetBall();
-        // console.log(this.inner.getBoundingClientRect());
     }
 
     moveBall(){
@@ -41,9 +43,12 @@ class Ball{
         if(this.y<=0){
             this.ballSpeedY*=-1;
         }
-        if(this.y>=this.innerRect.height-this.ball.offsetHeight){
-            document.querySelector(".game-over").style.display="block";
+        if(this.y>=this.innerRect.height-this.ball.offsetHeight&&!this.gameClearFlg){
+            const gameOver=document.querySelector(".game-over");
+            gameOver.style.cssText="display:block !important";
             this.ball.style.display="none";
+            this.gameStop();
+            return;
         }
 
         //パドルとの衝突判定
@@ -81,23 +86,28 @@ class Ball{
         this.inner.appendChild(newBall);
     }
 
-    resetBall(){
-        document.querySelector(".game-over").style.display="none";
+    gameClearFlgOn(){
+        this.gameClearFlg=true;
+    }
 
+    resetBall(){
         this.ball.style.display="block";
         this.x=this.inner.offsetWidth/2-this.ball.offsetWidth/2;
         this.y=(this.inner.offsetHeight*2)/3;
-        this.ballSpeedX=.75;
-        this.ballSpeedY=.75;
+        this.ballSpeedX=this.getRandomFloat(this.MinBallSpeed,this.MaxBallSpeed)*this.getNagative();
+        this.ballSpeedY=this.getRandomFloat(this.MinBallSpeed,this.MaxBallSpeed);
         this.ball.style.left=this.x+"px";
         this.ball.style.top=this.y+"px";
     }
     
     reflectY(){
         this.ballSpeedY*=-1;
-        // this.ballSpeedX*=-1;
+    }
+
+    getRandomFloat(min=-1,max=-1){
+        return Math.random()*(max-min)+min;
+    }
+    getNagative(){
+        return Math.random()<.5?-1:1;
     }
 }
-
-// ball=new Ball();
-// ball.moveBall();

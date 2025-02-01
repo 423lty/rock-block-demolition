@@ -9,7 +9,7 @@ class Bar{
         this.createBarElement();
 
         this.bar=document.querySelector('.bar');
-
+        this.isMoveFlg=false;
         //this変数の定義
         this.x;
         this.speed;
@@ -20,9 +20,8 @@ class Bar{
 
     createBarElement(){
         const bar = document.querySelector('.bar');
-        if(bar){
+        if(bar)
             bar.remove();
-        }
 
         const newBar=document.createElement('div');
         newBar.classList.add('bar');
@@ -32,7 +31,7 @@ class Bar{
     resetBar(){
         this.x=this.inner.offsetWidth/2;
         this.bar.style.left=this.x+"px";
-        this.speed=this.inner.offsetWidth/30;
+        this.speed=this.inner.offsetWidth/20;
     }
 
     /**
@@ -40,6 +39,9 @@ class Bar{
      * @param {イベントキー} event 
      */
     moveBar(event) {  
+        if(!this.isMoveFlg)
+            return;
+
         if(event==="ArrowLeft"&&this.x>=0){
             this.x-=this.speed;
             if(this.x<this.bar.offsetWidth/2)
@@ -53,7 +55,7 @@ class Bar{
         }
         this.bar.style.left=this.x+"px";
     }   
+    setMoveFlgOn(){
+        this.isMoveFlg=true;
+    }
 }
-
-// bar = new Bar();
-// document.addEventListener('keydown', (event)=>bar.moveBar(event.key));

@@ -1,4 +1,8 @@
 class Blocks{
+    /**
+     * コンストラクタ
+     * @param {ボールのインスタンス} ballInstance 
+     */
     constructor(ballInstance){
         this.blocks=document.querySelector('.inner');
 
@@ -13,6 +17,9 @@ class Blocks{
         this.ball=ballInstance;
     }
 
+    /**
+     * ブロックの生成
+     */
     blockGenerate(line,col){
         this.blocks.querySelectorAll('.block').forEach(block=>block.remove());
         const blockLine=line;
@@ -31,6 +38,11 @@ class Blocks{
             this.blockArray.push(block);
         }
     }
+
+    /**
+     * 判定のチェック
+     * @returns 強制終了
+     */
     collisionCheck(){
         const ball=document.querySelector('.ball');
         const ballRect=ball.getBoundingClientRect();

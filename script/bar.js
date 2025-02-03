@@ -2,7 +2,7 @@ class Bar{
     /**
      * コンストラクタ
      */
-    constructor() {
+    constructor(){
         
         this.inner=document.querySelector('.inner');
         // 以前に存在するバーを削除
@@ -18,6 +18,9 @@ class Bar{
         this.resetBar();
     }
 
+    /**
+     * ボールの要素を生成
+     */
     createBarElement(){
         const bar = document.querySelector('.bar');
         if(bar)
@@ -28,6 +31,9 @@ class Bar{
         this.inner.appendChild(newBar);
     }
 
+    /**
+     * バーのリセット
+     */
     resetBar(){
         this.x=this.inner.offsetWidth/2;
         this.bar.style.left=this.x+"px";
@@ -55,6 +61,10 @@ class Bar{
         }
         this.bar.style.left=this.x+"px";
     }   
+
+    /**
+     * バーの移動フラグをオンにする
+     */
     setMoveFlgOn(){
         this.isMoveFlg=true;
     }

@@ -94,6 +94,7 @@ footer {
     border: none;
     cursor: pointer;
     transition:all .3s;
+    border-radius: 5px;
 }
 .start button:hover {
     background-color: #56b0c9;
@@ -106,4 +107,7 @@ footer {
     transform: translate(-50%, -50%);
     font-size: 7rem;
     color: #f0f0f0;
+    background-color: #312e2e;
+    padding: 5% 10%;
+    transition: all .3s;
 }
